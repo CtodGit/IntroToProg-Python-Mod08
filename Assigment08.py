@@ -125,6 +125,8 @@ class FileProcessor:
             file.close()
             print('File does not exist, creating empty file...')
 
+#method for writing data to the file, steps through the list of rows, assigns each object a name
+#then if uses the object parameters from the Product() Class to write each attribute value to the file
     @staticmethod
     def write_data_to_file():
         file = open(file_name, 'w')
@@ -189,7 +191,7 @@ class IO:
         print()  # Add an extra line for looks
         return choice
 
-
+#prints current data from list
     @staticmethod
     def print_current_data_in_list():
         """ Shows the current data in the list of dictionaries rows
@@ -198,7 +200,8 @@ class IO:
         """
 
 #tests to see if list of rows is empty, goes to else: statment if so, it it is not empty, it will loop through
-# list of rows and print each dictionary object via the key values Product and Price
+# list of rows and assigne each list item a name, then product class attributes are used to print out
+#product name and product price
         if len(list_of_rows) > 0:
             print("******* The current Products and their prices are: *******")
             for row in list_of_rows:
@@ -232,31 +235,39 @@ class IO:
     # let user save current data to file and exit program
 
 # Main Body of Script  ---------------------------------------------------- #
-# p1 = Product()
+#reads the data and populates list of rows (list) upon startup
 FileProcessor.read_data_from_file(file_name)
 
+
+#while loop to call methods and route user choice
 while True:
 
+#calling menu printing method
     IO.print_menu_Tasks()
+#calling choice getting method and assigning to choice
     choice = IO.input_menu_choice()
 
     if choice == '1':
+#reads data from file
         FileProcessor.read_data_from_file(file_name)
+#prints data from file
         IO.print_current_data_in_list()
 
     elif choice == '2':
+#calls get product method to get user infor for product and price
         IO.get_prod_data()
-        print()
+#prints the new data after getting user data
         IO.print_current_data_in_list()
-
+#writes data in list of rows to file
     elif choice == '3':
         FileProcessor.write_data_to_file()
         print('Session data written to file!')
         print()
-
+#exits the program
     elif choice == '4':
         print('Ending program')
         exit()
+#serves as a catch-all for entering anything other than the menu options
     else:
         print('You must enter 1-4, try again please...')
         continue
